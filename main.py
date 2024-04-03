@@ -24,8 +24,8 @@ def send_email(event, context):
     from_email     = "Cloud Webapp <webapp@saicheb.me>"
     to_email       = json_data.get('email')
     subject        = "Verify your account"
-    content        = "please verify your email by clicking this link"
     token          = json_data.get('token')
+    content        = f"Please verify your email by clicking this link https://saicheb.me/verify?token={token}"
 
     try:
 
@@ -33,12 +33,10 @@ def send_email(event, context):
             post_email_url,
             auth=authentication,
             data={
-                "template":"verify",
                 "from":from_email,
                 "to": to_email,
                 "subject": subject,
-                "text": content,
-                "h:X-Mailgun-Variables": json.dumps({"first_name": "Cloud Webapp User", "token": token})
+                "text": content
             }
         )
 
